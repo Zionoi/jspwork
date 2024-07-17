@@ -6,7 +6,7 @@ public class EXPool {
 private DBConnectionMgr pool = null;
 	
 	public EXPool() {
-		pool =  DBConnectionMgr.getInstance();
+		pool = DBConnectionMgr.getInstance();
 	}
 	public ArrayList<Bean> getList(){
 		ArrayList<Bean> alist = new ArrayList<Bean>();
