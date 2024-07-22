@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, ch09.*" %>
+<jsp:useBean id="vDao" class="ch09.VoteDao" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,21 +37,8 @@
 	<div>
 		<h2>투표프로그램</h2>
 		<hr>
-		<form name="frm" class="voteForm">
-			<h2>설문폼</h2>
-			<table>
-				<tr>
-					<td colspan="2">Q : null</td>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td>투표</td>
-					<td><input type="button" name="result" value="결과"></td>
-				</tr>
-			</table>
-		</form>
+		<!--인클루드해서 해당 페이지 연동  -->
+		<jsp:include page="voteForm.jsp"/>
 		<hr>
 		<h2>설문리스트</h2>
 		<table>
@@ -58,6 +47,20 @@
 				<th>제목</th>
 				<th>시작일~종료일</th>
 			</tr>
+			<%
+				ArrayList<VoteList> alist = vDao.getList();
+			
+				for(int i=0; i<alist.size();i++){
+					VoteList vlist = alist.get(i);
+			%>		
+				<tr>
+					<td> <%=vlist.getNum() %></td>
+					<td> <a href="votelist.jsp?num=<%=vlist.getNum()%>"><%=vlist.getQuestion() %></a></td>
+					<td> <%=vlist.getSdate().substring(0, 10) %> ~ <%=vlist.getEdate().substring(0, 10) %></td>
+				</tr>
+			<%
+				}
+			%>
 			<tr>
 				<td colspan="3" text-align="right">설문 작성하기</td>
 			</tr>

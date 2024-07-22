@@ -4,8 +4,14 @@
 <jsp:useBean id="vDao" class="ch09.VoteDao"/>
 
 <%
-	VoteList vlist = vDao.getOneVote(25);
-	ArrayList<String> vItem = vDao.getItem(25);
+	int num = 0;
+	// 페이지가 처음 켜질때엔 request.getParameter로 전달받은 값이 없어서 에러가 뜸. if문으로 걸러주기
+	if(!(request.getParameter("num")==null||request.getParameter("num").equals(""))){
+		num =Integer.parseInt(request.getParameter("num"));
+	}
+	
+	VoteList vlist = vDao.getOneVote(num);
+	ArrayList<String> vItem = vDao.getItem(num);
 	
 	String question = vlist.getQuestion();
 	int type = vlist.getType();
@@ -51,10 +57,12 @@
 					<tr>
 						<td>
 							<input type="submit" value="투 표"> &emsp;
-							<input type="button" value="결 과">
+							<input type="button" value="결 과" 
+							onclick="window.open('voteView.jsp?num=<%=num%>', 'voteView', 'width=500, height=350')">
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" name="num" value="<%=num %>">
 	</div>
 </body>
 </html>
