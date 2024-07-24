@@ -17,7 +17,8 @@
 	int start = 1;		  // board테이블의 select시 시작번호(한페이지에 필요한 만큼만 게시물 가져오려고)
 	int end = 0;		  // 1page에 보여줄 레코드의 갯수(보통은 10개, 맨 마지막page는 전체레코드수에 따라 달라짐)
 	int listSize = 0;	  // 현재 읽어온 게시물의 수
-
+	
+	//선언시 스트링 자료형에 ""가 아닌 null로 초기화하면 뒤에서 메소드작업시 null이 아닌 "null"반환되는 경우가 있음
 	String keyField = null, keyWord = null;
 	if(request.getParameter("keyWord") != null){
 		keyField = request.getParameter("keyField");
@@ -164,7 +165,7 @@
 				%>
 				</td>
 				<td colspan="2" align="right;">
-					<a href="" class="a">[글쓰기]</a>&emsp;
+					<a href="post.jsp" class="a">[글쓰기]</a>&emsp;
 					<a href="javascript:list();" class="a">[처음으로]</a>
 				</td>
 			</tr>

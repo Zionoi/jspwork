@@ -20,7 +20,7 @@
 		<h1>로그인</h1>
 		<form action="LoginServlet" method="post">
 		ID : <input name="id"><p/>
-		ID : <input type="password" name="pw"><p/>
+		PW : <input type="password" name="pw"><p/>
 		<input type="submit" value="로그인">
 		</form>
 <%	

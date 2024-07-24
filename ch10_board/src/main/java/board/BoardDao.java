@@ -19,8 +19,7 @@ public class BoardDao {
 	// 게시판 리스트
 	public ArrayList<Board> getBoardList(String keyField, String keyWord, int start, int end) {
 		ArrayList<Board> alist = new ArrayList<Board>();
-		System.out.println(keyField);
-		System.out.println(keyWord);
+	
 		
 		try {
 			con = pool.getConnection();
@@ -146,6 +145,122 @@ public class BoardDao {
 		return board;
 	}
 	
+	//게시물 등록하기
+	public boolean insertBoard(Board board) {
+		boolean flag = false;
+		
+		try {
+			con = pool.getConnection();
+			sql = "insert into board values(SEQ_BOARD.NEXTVAL,?,?,?,0,SEQ_BOARD.currval,0,sysdate,?,?,default)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getName());
+			pstmt.setString(2, board.getSubject());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getPass());
+			pstmt.setString(5, board.getIp());
+			if(pstmt.executeUpdate()==1) { //잘 들어갔으면 반환값 1, 안됐으면 반환값 0
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+		return flag;
+	}
+	
+	
+	//게시물 수정
+	public void updateBoard(Board board) {
+				
+		try {
+			con = pool.getConnection();
+			sql = "update board set name=?, subject=?, content=? where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getName());
+			pstmt.setString(2, board.getSubject());
+			pstmt.setString(3, board.getContent());
+			pstmt.setInt(4, board.getNum());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	public void deleteBoard(Board board) {
+		
+		try {
+			con = pool.getConnection();
+			sql = "delete from board where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board.getNum());
+//			pstmt.executeUpdate();
+			System.out.println(pstmt.executeUpdate()+" | "+board.getNum());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+	}
+	
+	
+	
+	
+	//답변의 위치값을 증가
+	public void replyPosUpdate(int ref, int pos) {
+				
+		try {
+			con = pool.getConnection();
+			sql = "update board set pos = pos+1 where ref=? and pos > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			pstmt.setInt(2, pos);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+
+	}
+	
+	
+	//게시물 댓글 달기
+	public void replyBoard(Board board) {
+				
+		try {
+			con = pool.getConnection();
+			sql = "insert into board values(seq_board.nextval,?,?,?,?,?,?,sysdate,?,?,default)";
+			int depth = board.getDepth()+1; //부모의 depth에서 1더한값으로 초기화
+			int pos = board.getPos()+1; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,board.getName());
+			pstmt.setString(2,board.getSubject());
+			pstmt.setString(3,board.getContent());
+			pstmt.setInt(4,pos);
+			pstmt.setInt(5,board.getRef());
+			pstmt.setInt(6,depth);
+			pstmt.setString(7,board.getPass());
+			pstmt.setString(8,board.getIp());
+			System.out.println(board.getName());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+		
+	}
+	
 	
 	
 	public int getTotalCount2() {
@@ -161,5 +276,5 @@ public class BoardDao {
 		return totalCount;
 	}
 	
-
+	
 }
