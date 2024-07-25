@@ -9,11 +9,12 @@ public class ChunBean {
 	private String entrance_date;
 	private String absence_yn;
 	private String coach_professor_no;
+	private String st_pwd;
 	public ChunBean() {
 		super();
 	}
 	public ChunBean(String student_no, String department_no, String student_name, String student_ssn,
-			String student_address, String entrance_date, String absence_yn, String coach_professor_no) {
+			String student_address, String entrance_date, String absence_yn, String coach_professor_no, String st_pwd) {
 		super();
 		this.student_no = student_no;
 		this.department_no = department_no;
@@ -23,6 +24,7 @@ public class ChunBean {
 		this.entrance_date = entrance_date;
 		this.absence_yn = absence_yn;
 		this.coach_professor_no = coach_professor_no;
+		this.st_pwd = st_pwd;
 	}
 	public String getStudent_no() {
 		return student_no;
@@ -72,13 +74,20 @@ public class ChunBean {
 	public void setCoach_professor_no(String coach_professor_no) {
 		this.coach_professor_no = coach_professor_no;
 	}
+	public String getSt_pwd() {
+		return st_pwd;
+	}
+	public void setSt_pwd(String st_pwd) {
+		this.st_pwd = st_pwd;
+	}
 	@Override
 	public String toString() {
 		return "ChunBean [student_no=" + student_no + ", department_no=" + department_no + ", student_name="
 				+ student_name + ", student_ssn=" + student_ssn + ", student_address=" + student_address
 				+ ", entrance_date=" + entrance_date + ", absence_yn=" + absence_yn + ", coach_professor_no="
-				+ coach_professor_no + "]";
+				+ coach_professor_no + ", st_pwd=" + st_pwd + "]";
 	}
+	
 	
 	
 

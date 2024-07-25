@@ -193,23 +193,50 @@ public class BoardDao {
 	
 	
 	
+	// 게시물 삭제
+//	public void deleteBoard(Board board) {
+//		
+//		try {
+//			con = pool.getConnection();
+//			sql = "delete from board where num=?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, board.getNum());
+////			pstmt.executeUpdate();
+//			System.out.println(pstmt.executeUpdate()+" | "+board.getNum());
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			pool.freeConnection(con);
+//		}
+//	}
 	
-	public void deleteBoard(Board board) {
-		
-		try {
-			con = pool.getConnection();
-			sql = "delete from board where num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board.getNum());
-//			pstmt.executeUpdate();
-			System.out.println(pstmt.executeUpdate()+" | "+board.getNum());
+	//교수님이 만든 게시물삭제 메소드
+	public boolean deleteBoard(int num) {
+			boolean flag = false;
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con);
+			try {
+				con = pool.getConnection();
+				//댓글이 달려있는글은 삭제가 안되게 막기 위한 sql문
+				sql = "select count(*) from board where ref="+num;
+				rs = con.createStatement().executeQuery(sql);
+				if(rs.next()) {
+					// ref행 카운트 1 이상이면 댓글이 달려있다는뜻
+					if(rs.getInt(1) <= 1) {
+						sql="delete from board where num="+num;
+						if(con.createStatement().executeUpdate(sql)==1)
+							flag = true;
+					}
+				}
+
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con);
+			}
+			return flag;
 		}
-	}
 	
 	
 	
@@ -262,19 +289,6 @@ public class BoardDao {
 	}
 	
 	
-	
-	public int getTotalCount2() {
-		int totalCount = 0;
-		
-		try {
-			con = pool.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con);
-		}
-		return totalCount;
-	}
-	
+
 	
 }
