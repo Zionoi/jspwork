@@ -206,7 +206,7 @@
 		이름 : <input type="text" id="name"><br>
 		나이 : <input type="number" id="age"><br>
 		<button id="btn3">전송</button>
-		
+<!-- 		
 		응답 : <label id="output3"></label>
 
 	<script>
@@ -221,7 +221,51 @@
 					type : 'post',
 					success : function(result){
 						console.log(result);
+						console.log(result[0]);
+						
 						$("#output3").text(result);
+						$("#name").val("");
+						$("#age").val("");
+						
+					},
+					error : function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+			})
+		})
+	</script>
+	 -->
+	
+	<ul id="output4"></ul>
+
+	<script>
+		$(() => {
+			$("#btn3").click(function(){
+				$.ajax({
+					url : 'ajax2.do',
+					data : {
+						name : $("#name").val(),
+						age : $("#age").val()
+					},
+					type : 'post',
+					success : function(result){
+						console.log(result);
+						/*//JSONArray로 받았을때
+						const value = "	<li>이름 : "+result[0]+"</li>"
+									+ "	<li>나이 : "+result[1]+"</li>";
+									*/
+						
+						//JSONObject로 받았을 때
+						console.log(result.name);
+						console.log(result.age);
+											
+						const value = "	<li>이름 : "+result.name+"</li>"
+									+ "	<li>나이 : "+result.age+"</li>";
+						$("#name").val("");
+						$("#age").val("");
+						
+						$("#output4").html(value); 
 					},
 					error : function(){
 						console.log("ajax 통신 실패");
@@ -231,8 +275,91 @@
 		})
 	</script>
 	
+	<hr>
 	
+	<h3>3. 서버에 데이터를 전송 후, 조회된 bean 객체를 응답데이터로 반환</h3>
 	
+	검색하고자하는 회원 ID : <input id="input5">
+	<button id="btn5">조회</button>
+	
+	<div id="output5"></div>
+	
+	<script>
+		$(()=>{
+			$("#btn5").click(function(){
+				$.ajax({
+					url : "ajax5.do",
+					data : {id : $("#input5").val()},
+					success : function(result){
+						console.log(result);
+						//JSONObject로 받았을 때
+						/* const value = "<li>ID : "+ result.userId + "</li>"
+									+ "<li>이름 : "+ result.userName + "</li>"
+									+ "<li>성별 : "+ result.gender + "</li>"
+									+ "<li>이메일 : "+ result.email + "</li>";
+						$("#output5").html(value); */
+					
+						//GSON으로 받았을 때  호출시 DB에 컬럼명으로 호출해야함
+						const value = "<li>ID : "+ result.id + "</li>"
+									+ "<li>이름 : "+ result.name + "</li>"
+									+ "<li>성별 : "+ result.gender + "</li>"
+									+ "<li>이메일 : "+ result.email + "</li>";
+						$("#output5").html(value);
+					},
+					error : function(){
+						console.log("ajax 통신 실패");
+					}
+				})
+				
+			})
+		})
+	</script>
+	
+	<hr>
+	
+	<h3>4. 응답데이터로 조회된 여러 bean객체들이 담겨 있는 ArrayList받기</h3>
+	
+	<button id="btn6">회원 전체 조회</button><br><br>
+	
+	<table id="output6" border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>이름</th>
+				<th>성별</th>
+				<th>EMAIL</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	<script>
+		$(()=>{
+			$('#btn6').click(function(){
+				$.ajax({
+					url : "ajax6.do",
+					success : function(result){
+						console.log(result);
+						let value = "";
+							for(let i=0;i<result.length;i++){
+								
+								value += "<tr>"
+									   + " <td> "+ result[i].id + "</td>"
+									   + " <td> "+ result[i].name + "</td>"
+									   + " <td> "+ result[i].gender + "</td>"
+									   + " <td> "+ result[i].email + "</td>"
+									   + "</tr>";
+							}
+						$("#output6>tbody").html(value);
+					},
+					error : function(){
+						console.log("ajax통신 실패")
+					}
+				})
+			})
+		})
+	</script>
 	
 	
 </body>

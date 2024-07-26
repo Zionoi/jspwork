@@ -31,12 +31,42 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ajax2</display-name>
-    <servlet-name>ajax2</servlet-name>
-    <servlet-class>ajax01.ajax2</servlet-class>
+    <display-name>AjaxSerbletController2</display-name>
+    <servlet-name>AjaxSerbletController2</servlet-name>
+    <servlet-class>ajax01.AjaxSerbletController2</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ajax2</servlet-name>
+    <servlet-name>AjaxSerbletController2</servlet-name>
     <url-pattern>/ajax2.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxServletController5</display-name>
+    <servlet-name>AjaxServletController5</servlet-name>
+    <servlet-class>ajax01.AjaxServletController5</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxServletController5</servlet-name>
+    <url-pattern>/ajax5.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxSerbletController6</display-name>
+    <servlet-name>AjaxSerbletController6</servlet-name>
+    <servlet-class>ajax01.AjaxSerbletController6</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxSerbletController6</servlet-name>
+    <url-pattern>/ajax6.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxSurvletReplyList</display-name>
+    <servlet-name>AjaxSurvletReplyList</servlet-name>
+    <servlet-class>ajaxReply.AjaxSurvletReplyList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxSurvletReplyList</servlet-name>
+    <url-pattern>/ajaxReply/rlist.bo</url-pattern>
   </servlet-mapping>
 </web-app>
