@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
+
 public class ReplyDao {
 	private DBConnectionMgr pool = DBConnectionMgr.getInstance();
 	Connection con = null;
@@ -47,6 +48,29 @@ public class ReplyDao {
 			}
 		return alist;
 	}
+	
+	//댓글 등록하기
+		public boolean insertReply(Reply reply) {
+			boolean flag = false;
+			
+			try {
+				con = pool.getConnection();
+				sql = "insert into REPLY values(SEQ_REPLY.NEXTVAL,?,?,?,sysdate)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, reply.getContent());
+				pstmt.setInt(2, reply.getRef());
+				pstmt.setString(3, reply.getName());
+				
+				if(pstmt.executeUpdate()==1) { //잘 들어갔으면 반환값 1, 안됐으면 반환값 0
+					flag = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con);
+			}
+			return flag;
+		}
 		
 		
 		

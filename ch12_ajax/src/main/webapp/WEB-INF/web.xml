@@ -69,4 +69,14 @@
     <servlet-name>AjaxSurvletReplyList</servlet-name>
     <url-pattern>/ajaxReply/rlist.bo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxSurvlerReplyInsert</display-name>
+    <servlet-name>AjaxSurvlerReplyInsert</servlet-name>
+    <servlet-class>ajaxReply.AjaxSurvlerReplyInsert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxSurvlerReplyInsert</servlet-name>
+    <url-pattern>/ajaxReply/rinsert.bo</url-pattern>
+  </servlet-mapping>
 </web-app>
