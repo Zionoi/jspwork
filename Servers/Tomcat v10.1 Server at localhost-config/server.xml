@@ -17,7 +17,7 @@
 --><!-- Note:  A "Server" is not itself a "Container", so you may not
      define subcomponents such as "Valves" at this level.
      Documentation at /docs/config/server.html
- --><Server port="8090" shutdown="SHUTDOWN">
+ --><Server port="8005" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
@@ -61,7 +61,7 @@
          AJP  Connector: /docs/config/ajp.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector URIEncoding="UTF-8" connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -142,7 +142,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="ch13_el_jstl" path="/ch13_el_jstl" reloadable="true" source="org.eclipse.jst.jee.server:ch13_el_jstl"/><Context docBase="ch14_homepage_jstl" path="/ch11_homepage" reloadable="true" source="org.eclipse.jst.jee.server:ch14_homepage_jstl"/><Context docBase="EX_chun" path="/EX_chun" reloadable="true" source="org.eclipse.jst.jee.server:EX_chun"/></Host>
+      <Context docBase="ch01_scriptlet" path="/ch01_scriptlet" reloadable="true" source="org.eclipse.jst.jee.server:ch01_scriptlet"/><Context docBase="test1" path="/test1" reloadable="true" source="org.eclipse.jst.j2ee.server:test1"/></Host>
     </Engine>
   </Service>
 </Server>
