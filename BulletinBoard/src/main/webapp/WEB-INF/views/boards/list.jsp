@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,19 +23,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="board" items="${boards }">
-					<tr>
-						<td><${board.board_no }</td>
-						<td><a href="/boards/${board.board.no}">${board.board_title }</a></td>
-						<td>${board.board_writer }</td>
-						<td>${board.board_date }</td>
-						<td>
-							<a href="/boards/${board.board_no }/edit" class="btn btn-sm btn-warning">수정</a>
-							<form action="/boards/${board.board_no }/delete" method="post" style="display:inline;">
-								<button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('삭제하시겠습니까?');">삭제</button>
-                            </form>
-						</td>
-					</tr>
+				<c:forEach var="board" items="${boards}">
+				    <tr>
+				        <td>${board.boardNo}</td>
+				        <td><a href="/boards/${board.boardNo}">${board.boardTitle}</a></td>
+				        <td>${board.boardWriter}</td>
+				        <td>${board.createDate}</td>
+				        <td>
+				            <a href="/boards/${board.boardNo}/edit" class="btn btn-sm btn-warning">수정</a>
+				            <form action="/boards/${board.boardNo}/delete" method="post" style="display:inline;">
+				                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('삭제하시겠습니까?');">삭제</button>
+				            </form>
+				        </td>
+				    </tr>
 				</c:forEach>
 			</tbody>
 		</table>

@@ -22,9 +22,10 @@ public class BoardController {
 	private BoardMapper boardMapper;
 	
 	//게시글 목록
-	@GetMapping
+	@GetMapping("/list")
 	public String list(Model model) {
 		List<Board> boards = boardMapper.findAll();
+		System.out.println("전체게시판 컨트롤러 메소드 확인 : "+boards.toString());
 		model.addAttribute("boards", boards);
 		return "boards/list";
 	}
@@ -45,7 +46,7 @@ public class BoardController {
 	
 	// 게시글 상세보기
 	@GetMapping("/{board_no}")
-	public String viewBoard(@PathVariable int board_no, Model model) {
+	public String viewBoard(@PathVariable("board_no") int board_no, Model model) {
 		Board board = boardMapper.findById(board_no);
 		model.addAttribute("board", board);
 		return "boards/view";
@@ -62,7 +63,7 @@ public class BoardController {
 	// 게시글 업데이트
 	@PostMapping("/{board_no}")
 	public String updateBoard(@PathVariable int board_no, @ModelAttribute Board board) {
-		board.setBoard_no(board_no);
+		board.setBoardNo(board_no);
 		boardMapper.update(board);
 		return "redirect:/boards/" + board_no;
 	}
