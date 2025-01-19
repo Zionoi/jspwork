@@ -45,34 +45,35 @@ public class BoardController {
 	}
 	
 	// 게시글 상세보기
-	@GetMapping("/{board_no}")
-	public String viewBoard(@PathVariable("board_no") int board_no, Model model) {
-		Board board = boardMapper.findById(board_no);
+	@GetMapping("/{boardNo}")
+	public String viewBoard(@PathVariable("boardNo") int boardNo, Model model) {
+		Board board = boardMapper.findById(boardNo);
 		model.addAttribute("board", board);
-		return "boards/view";
+		return "/boards/detailboard";
 	}
 	
 	// 게시글 수정 폼
-	@GetMapping("{board_no}/edit")
-	public String editBoardForm(@PathVariable int board_no, Model model) {
-		Board board = boardMapper.findById(board_no);
+	@GetMapping("{boardNo}/edit")
+	public String editBoardForm(@PathVariable("boardNo") int boardNo, Model model) {
+		Board board = boardMapper.findById(boardNo);
 		model.addAttribute("board", board);
+		System.out.println("수정폼 확인 : "+board.toString());
 		return "boards/edit";
 	}
 	
 	// 게시글 업데이트
-	@PostMapping("/{board_no}")
-	public String updateBoard(@PathVariable int board_no, @ModelAttribute Board board) {
-		board.setBoardNo(board_no);
+	@PostMapping("/{boardNo}")
+	public String updateBoard(@PathVariable("boardNo") int boardNo, @ModelAttribute Board board) {
+		board.setBoardNo(boardNo);
 		boardMapper.update(board);
-		return "redirect:/boards/" + board_no;
+		return "redirect:/boards/" + boardNo;
 	}
 	
 	// 게시글 삭제
-	@PostMapping("{board_no}/delete")
-	public String deleteBoard(@PathVariable int board_no) {
-		boardMapper.delete(board_no);
-		return "redirect:/boards";
+	@PostMapping("{boardNo}/delete")
+	public String deleteBoard(@PathVariable("boardNo") int boardNo) {
+		boardMapper.delete(boardNo);
+		return "redirect:/boards/list";
 	}
 	
 }

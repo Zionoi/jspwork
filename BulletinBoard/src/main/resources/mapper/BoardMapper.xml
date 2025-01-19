@@ -32,7 +32,6 @@
 	</insert>
 	
 	<!-- 게시글 수정 -->
-	<!-- 게시글 수정 -->
 	<update id="update" parameterType="com.example.demo.model.Board">
 	    UPDATE board
 	    SET board_title = #{boardTitle}, 
@@ -43,7 +42,7 @@
 	
 	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="int">
-		DELETE FROM board WHERE board_no = #{board_no}
+		DELETE FROM board WHERE board_no = #{boardNo}
 	</delete>
 	
 </mapper>
