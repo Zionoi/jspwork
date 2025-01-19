@@ -34,14 +34,14 @@ public class BoardController {
 	@GetMapping("/new")
 	public String newBoardForm(Model model) {
 		model.addAttribute("board", new Board());
-		return "boards/new";
+		return "boards/newBoard";
 	}
 	
 	// 게시글 저장
 	@PostMapping
 	public String saveBoard(@ModelAttribute Board board) {
 		boardMapper.insert(board);
-		return "redirect:/boards";
+		return "redirect:/boards/list";
 	}
 	
 	// 게시글 상세보기

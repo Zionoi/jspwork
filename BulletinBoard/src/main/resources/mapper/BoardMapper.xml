@@ -20,15 +20,25 @@
 	
 	<!-- 게시글 삽입  -->
 	<insert id="insert" parameterType="com.example.demo.model.Board">
-	    INSERT INTO board (board_title, board_content, board_writer, count, status)
-	    VALUES (#{board_title}, #{board_content}, #{board_writer}, 0, 'Y')
+	    INSERT INTO board (board_no, board_title, board_content, board_writer, count, status)
+	    VALUES (
+	        SEQ_BNO.NEXTVAL,
+	        #{boardTitle, jdbcType=VARCHAR}, 
+	        #{boardContent, jdbcType=VARCHAR}, 
+	        #{boardWriter, jdbcType=VARCHAR}, 
+	        0, 
+	        'Y'
+	    )
 	</insert>
 	
 	<!-- 게시글 수정 -->
+	<!-- 게시글 수정 -->
 	<update id="update" parameterType="com.example.demo.model.Board">
-		UPDATE board
-		SET board_title = #{board_title}, board_content = #{board_content}, board_writer = #{board_writer}
-		WHERE board_no = #{board_no} 
+	    UPDATE board
+	    SET board_title = #{boardTitle}, 
+	        board_content = #{boardContent}, 
+	        board_writer = #{boardWriter}
+	    WHERE board_no = #{boardNo}
 	</update>
 	
 	<!-- 게시글 삭제 -->
